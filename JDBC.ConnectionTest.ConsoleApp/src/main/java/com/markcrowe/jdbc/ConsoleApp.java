@@ -3,8 +3,6 @@
  */
 package com.markcrowe.jdbc;
 
-import com.markcrowe.jdbc.ConnectionStringBuilder;
-import com.markcrowe.jdbc.JdbcConnectionTest;
 import java.util.Scanner;
 
 /**
