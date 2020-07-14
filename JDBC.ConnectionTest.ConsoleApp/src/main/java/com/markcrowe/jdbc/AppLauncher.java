@@ -6,7 +6,7 @@ package com.markcrowe.jdbc;
 /**
  * Class with main method to launch the application
  */
-public class AppLauncher
+class AppLauncher
 {
 	public static void main(String[] args)
 	{
