@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2021 Mark Crowe <https://github.com/markcrowe-com>. All rights reserved.
  */
 package com.markcrowe.jdbc;
 
@@ -19,8 +17,7 @@ import java.util.Properties;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
 /**
- *
- * @author Conchraidh
+ * MySql Database Installer
  */
 public class MySqlDatabaseInstaller
 {
@@ -63,7 +60,7 @@ public class MySqlDatabaseInstaller
 	{
 		String createDatabaseSql = String.format("Create Database `%s`", databaseName);
 
-		try(Statement createStatement = connection.createStatement())
+		try( Statement createStatement = connection.createStatement())
 		{
 			createStatement.executeUpdate(createDatabaseSql);
 		}
@@ -71,7 +68,7 @@ public class MySqlDatabaseInstaller
 	private static void executeSqlScript(String sqlScriptFilePath, Connection databaseConnection) throws FileNotFoundException, IOException
 	{
 		ScriptRunner scriptRunner = new ScriptRunner(databaseConnection);
-		try(BufferedReader bufferedReader = new BufferedReader(new FileReader(sqlScriptFilePath)))
+		try( BufferedReader bufferedReader = new BufferedReader(new FileReader(sqlScriptFilePath)))
 		{
 			scriptRunner.runScript(bufferedReader);
 		}
@@ -79,10 +76,10 @@ public class MySqlDatabaseInstaller
 	public static boolean isDatabaseNameInUse(String databaseName, Connection connection) throws SQLException
 	{
 		String sql = "SHOW DATABASES LIKE ?;";
-		try(PreparedStatement preparedStatement = connection.prepareStatement(sql))
+		try( PreparedStatement preparedStatement = connection.prepareStatement(sql))
 		{
 			preparedStatement.setString(1, databaseName);
-			try(ResultSet resultSet = preparedStatement.executeQuery())
+			try( ResultSet resultSet = preparedStatement.executeQuery())
 			{
 				return resultSet.next();
 			}
