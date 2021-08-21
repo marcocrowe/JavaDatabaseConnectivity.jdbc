@@ -10,6 +10,6 @@ class AppLauncher
 {
 	public static void main(String[] args)
 	{
-		new ConsoleApp().run();
+		System.out.println("SqlDatabaseInstaller");
 	}
 }

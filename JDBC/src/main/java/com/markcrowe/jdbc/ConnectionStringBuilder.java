@@ -19,81 +19,79 @@ public class ConnectionStringBuilder
 		this.serverPortNumber = serverPortNumber;
 		this.username = username;
 	}
-	//
-	//	Public Properties
-	//
+	/* Public Properties */
 	public String getApplication()
 	{
 		return application;
 	}
-	public void setApplication(String application)
+	public ConnectionStringBuilder setApplication(String application)
 	{
 		this.application = application;
+		return this;
 	}
 	public String getDatabase()
 	{
 		return database;
 	}
-	public void setDatabase(String database)
+	public ConnectionStringBuilder setDatabase(String database)
 	{
 		this.database = database;
+		return this;
 	}
 	public String getPassword()
 	{
 		return password;
 	}
-	public void setPassword(String password)
+	public ConnectionStringBuilder setPassword(String password)
 	{
 		this.password = password;
+		return this;
 	}
 	public String getServer()
 	{
 		return server;
 	}
-	public void setServer(String server)
+	public ConnectionStringBuilder setServer(String server)
 	{
 		this.server = server;
+		return this;
 	}
 	public int getServerPortNumber()
 	{
 		return serverPortNumber;
 	}
-	public void setServerPortNumber(int serverPortNumber)
+	public ConnectionStringBuilder setServerPortNumber(int serverPortNumber)
 	{
 		this.serverPortNumber = serverPortNumber;
+		return this;
 	}
-	public void setServerPortNumber(String serverPortNumber)
+	public ConnectionStringBuilder setServerPortNumber(String serverPortNumber)
 	{
 		this.setServerPortNumber(Integer.parseInt(serverPortNumber));
+		return this;
 	}
 	public String getUsername()
 	{
 		return username;
 	}
-	public void setUsername(String username)
+	public ConnectionStringBuilder setUsername(String username)
 	{
 		this.username = username;
+		return this;
 	}
-	//
-	//	Public Methods
-	//
+	/* Public Methods */
 	public Properties buildAuthenticationProperties()
 	{
 		Properties properties = new Properties();
 		properties.put("user", username);
 		properties.put("password", password);
-		//
-		//	return
-		//
 		return properties;
 	}
 	public String buildConnectionString()
 	{
 		return "jdbc:" + application + "://" + server + ":" + serverPortNumber + "/" + database;
 	}
-	//
-	//	Private Fields
-	//
+	/* Private Fields */
 	private String application;
 	private String database;
 	private String password;
