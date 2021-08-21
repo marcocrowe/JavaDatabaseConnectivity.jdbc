@@ -23,13 +23,16 @@ public class ConsoleApp
 			String userInput = consoleScanner.next();
 			switch(userInput)
 			{
-				case exit ->
+				case exit:
 					exitApplication();
-				case help ->
+					break;
+				case help:
 					printInstructions();
-				case mysql ->
+					break;
+				case mysql:
 					testDefaultMySqlRootConnectionValues();
-				case test ->
+					break;
+				case test:
 					testDatabase();
 					break;
 				default:
