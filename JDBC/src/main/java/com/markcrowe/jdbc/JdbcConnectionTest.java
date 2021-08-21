@@ -7,8 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Provides methods to Test a JDBC Connection
@@ -37,14 +35,9 @@ public class JdbcConnectionTest
 	 */
 	public static void testConnection(String connectionString, Properties authenticationProperties, String username)
 	{
-		Connection connection = null;
-		try
+		try( Connection connection = DriverManager.getConnection(connectionString, authenticationProperties))
 		{
-			connection = DriverManager.getConnection(connectionString, authenticationProperties);
-			if(connection != null)
-			{
-				System.out.println("Connected to the database.");
-			}
+			System.out.printf("Connected to the '%s' database.%n", connection.getSchema());
 		}
 		catch(SQLException exception)
 		{
@@ -52,24 +45,6 @@ public class JdbcConnectionTest
 			System.out.println(suggestedFixMessage);
 			System.out.println(exception);
 			//Logger.getLogger(JdbcConnectionTest.class.getName()).log(Level.SEVERE, null, exception);
-		}
-		finally
-		{
-			if(connection != null)
-			{
-				try
-				{
-					connection.close();
-				}
-				catch(SQLException exception)
-				{
-					Logger.getLogger(JdbcConnectionTest.class.getName()).log(Level.SEVERE, null, exception);
-				}
-				finally
-				{
-
-				}
-			}
 		}
 	}
 }

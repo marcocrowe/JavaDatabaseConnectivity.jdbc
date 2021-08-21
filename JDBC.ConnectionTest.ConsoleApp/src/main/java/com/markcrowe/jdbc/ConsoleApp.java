@@ -10,9 +10,6 @@ import java.util.Scanner;
  */
 public class ConsoleApp
 {
-	public ConsoleApp()
-	{
-	}
 	/**
 	 * Run the application
 	 */
@@ -23,8 +20,8 @@ public class ConsoleApp
 		do
 		{
 			output("Enter a command:");
-			String userinput = consoleScanner.next();
-			switch(userinput)
+			String userInput = consoleScanner.next();
+			switch(userInput)
 			{
 				case exit:
 					exitApplication();
@@ -39,18 +36,18 @@ public class ConsoleApp
 					testDatabase();
 					break;
 				default:
-					handleUnrecognizedCommand(userinput);
+					handleUnrecognizedCommand(userInput);
 					break;
 			}
 		}
-		while(contineRunningApp);
+		while(isRunning);
 	}
 	/**
 	 * Exit the application
 	 */
 	private void exitApplication()
 	{
-		contineRunningApp = false;
+		isRunning = false;
 		output("Exiting Program.");
 	}
 	/**
@@ -71,14 +68,13 @@ public class ConsoleApp
 		System.out.println("Enter the root user password:");
 		String password = consoleScanner.next();
 
-		ConnectionStringBuilder connectionStringBuilder = new ConnectionStringBuilder();
-
-		connectionStringBuilder.setApplication("mysql");
-		connectionStringBuilder.setDatabase(database);
-		connectionStringBuilder.setPassword(password);
-		connectionStringBuilder.setServer("localhost");
-		connectionStringBuilder.setServerPortNumber(3306);
-		connectionStringBuilder.setUsername("root");
+		ConnectionStringBuilder connectionStringBuilder = new ConnectionStringBuilder()
+				.setApplication("mysql")
+				.setDatabase(database)
+				.setPassword(password)
+				.setServer("localhost")
+				.setServerPortNumber(3306)
+				.setUsername("root");
 
 		JdbcConnectionTest.testConnection(connectionStringBuilder);
 	}
@@ -102,24 +98,24 @@ public class ConsoleApp
 		output("Enter the password:");
 		String password = consoleScanner.next();
 
-		ConnectionStringBuilder connectionStringBuilder = new ConnectionStringBuilder();
-		connectionStringBuilder.setApplication(application);
-		connectionStringBuilder.setDatabase(database);
-		connectionStringBuilder.setPassword(password);
-		connectionStringBuilder.setServer(server);
-		connectionStringBuilder.setServerPortNumber(serverPortNumber);
-		connectionStringBuilder.setUsername(username);
+		ConnectionStringBuilder connectionStringBuilder = new ConnectionStringBuilder()
+				.setApplication(application)
+				.setDatabase(database)
+				.setPassword(password)
+				.setServer(server)
+				.setServerPortNumber(serverPortNumber)
+				.setUsername(username);
 
 		JdbcConnectionTest.testConnection(connectionStringBuilder);
 	}
 	/**
 	 * Handle unrecognized Commands
 	 *
-	 * @param userinput The command the use enter
+	 * @param userInput The command the use enter
 	 */
-	private void handleUnrecognizedCommand(String userinput)
+	private void handleUnrecognizedCommand(String userInput)
 	{
-		output(String.format("'%s' is not a unrecognised command", userinput));
+		output(String.format("'%s' is not a unrecognized command", userInput));
 		output(String.format("Type '%s' to print the program instructions.", help));
 
 	}
@@ -127,14 +123,10 @@ public class ConsoleApp
 	{
 		System.out.println(text);
 	}
-	//
-	//	Private Fields
-	//
+	/* Private Fields */
 	private Scanner consoleScanner;
-	private Boolean contineRunningApp = true;
-	//
-	//	menu options
-	//
+	private boolean isRunning = true;
+	/* menu options */
 	private final String help = "help";
 	private final String exit = "exit";
 	private final String mysql = "mysql";

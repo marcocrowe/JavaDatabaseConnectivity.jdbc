@@ -21,7 +21,7 @@ import org.apache.ibatis.jdbc.ScriptRunner;
  */
 public class MySqlDatabaseInstaller
 {
-	public static void main(String[] args) throws SQLException, FileNotFoundException, IOException
+	public static void main(String[] args) throws SQLException, IOException
 	{
 		ConnectionStringBuilder connectionStringBuilder = new ConnectionStringBuilder();
 		String application = "mysql";
@@ -40,20 +40,20 @@ public class MySqlDatabaseInstaller
 
 		Properties authenticationProperties = connectionStringBuilder.buildAuthenticationProperties();
 		String connectionString = connectionStringBuilder.buildConnectionString();
-		Connection connection = DriverManager.getConnection(connectionString, authenticationProperties);
-
-		String databaseName = "NewDba123a";
-
-		if(isDatabaseNameInUse(databaseName, connection))
+		try( Connection connection = DriverManager.getConnection(connectionString, authenticationProperties);)
 		{
-			System.out.println("Database name is in use");
-		}
-		else
-		{
-			createDatabase(databaseName, connection);
-			System.out.println(String.format("Database %s has been created", databaseName));
-			String sqlScriptFilePath = "*.sql";
-			executeSqlScript(sqlScriptFilePath, connection);
+			String databaseName = "NewDba123a";
+			if(isDatabaseNameInUse(databaseName, connection))
+			{
+				System.out.println("Database name is in use");
+			}
+			else
+			{
+				createDatabase(databaseName, connection);
+				System.out.println(String.format("Database %s has been created", databaseName));
+				String sqlScriptFilePath = "*.sql";
+				executeSqlScript(sqlScriptFilePath, connection);
+			}
 		}
 	}
 	public static void createDatabase(String databaseName, Connection connection) throws SQLException
