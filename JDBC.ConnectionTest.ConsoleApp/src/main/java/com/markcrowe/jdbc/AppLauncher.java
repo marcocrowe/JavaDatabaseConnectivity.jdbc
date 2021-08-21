@@ -10,7 +10,6 @@ class AppLauncher
 {
 	public static void main(String[] args)
 	{
-		ConsoleApp consoleApp = new ConsoleApp();
-		consoleApp.run();
+		new ConsoleApp().run();
 	}
 }
